@@ -27,6 +27,7 @@
 
 # Table of Contents
 - [Features](#features)
+- [Usage](#usage)
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
 - [Getting Support](#getting-support)
@@ -39,8 +40,87 @@
 
 # Features
 
-- 📦&nbsp; Provides types and data definitions for developers working with `genezio`.
+- 📦&nbsp; Provides types for developers working with `genezio`.
 - 🧰&nbsp; Ensures data consistency and proper typing in `genezio` applications.
+
+# Usage
+
+To make the best use of `@genezio/types`, it's important to understand the provided TypeScript types: `GenezioHttpRequest` and `GenezioHttpResponse`.
+
+## `GenezioHttpRequest`
+
+The `GenezioHttpRequest` type represents an HTTP request. It consists of the following properties:
+
+- `headers`: An object containing HTTP headers as key-value pairs.
+- `http`: An object providing details about the HTTP request, including:
+    - `method`: The HTTP method used (e.g., GET, POST).
+    - `path`: The request path.
+    - `protocol`: The protocol used (e.g., HTTP, HTTPS).
+    - `userAgent`: The user-agent string.
+    - `sourceIp`: The source IP address of the request.
+- `queryStringParameters` (optional): An object containing query string parameters as key-value pairs.
+- `timeEpoch`: A timestamp in milliseconds indicating when the request was made.
+- `rawBody`: A string representing the raw request body.
+- `body`: A property of any type, which can be used to include the parsed request body.
+
+Here's an example of how you can use the `GenezioHttpRequest` type in TypeScript:
+
+```typescript
+import { GenezioHttpRequest } from '@genezio/types';
+
+const sampleRequest: GenezioHttpRequest = {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer someAccessToken',
+  },
+  http: {
+    method: 'GET',
+    path: '/api/resource',
+    protocol: 'HTTP/1.1',
+    userAgent: 'User-Agent-String',
+    sourceIp: '192.168.0.1',
+  },
+  queryStringParameters: {
+    param1: 'value1',
+    param2: 'value2',
+  },
+  timeEpoch: 1633900000000, // Replace with actual timestamp
+  rawBody: '{"key": "value"}',
+  body: {
+    key: 'value',
+  },
+};
+```
+
+## `GenezioHttpResponse`
+
+The `GenezioHttpResponse`  type represents an HTTP response. It consists of the following properties:
+
+- `body`: A property of any type, which can be used to include the response body.
+- `headers` (optional): An object containing HTTP headers as key-value pairs.
+- `statusCode`:  A string representing the HTTP status code.
+- `isBase64Encoded` (optional): A boolean indicating whether the response body is base64-encoded.
+
+
+Here's an example of how you can use the `GenezioHttpResponse` type in TypeScript:
+
+```typescript
+import { GenezioHttpResponse } from '@genezio/types';
+
+const sampleResponse: GenezioHttpResponse = {
+  body: {
+    message: 'Hello, World!',
+  },
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  statusCode: '200',
+  isBase64Encoded: false,
+};
+```
+
+These TypeScript types provided by @genezio/types will help ensure data consistency and proper typing in your genezio applications when handling HTTP requests and responses.
+
 
 # Getting Started
 
