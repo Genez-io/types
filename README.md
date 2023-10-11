@@ -149,12 +149,6 @@ If you cannot find what you are looking for in the docs, don't hesitate to drop 
 
 We are here to assist you with any problems or questions you may have while using `@genezio/types`. Don't hesitate to reach out to us on [GitHub](https://github.com/Genez-io/genezio/issues) or join our [Discord community](https://discord.gg/uc9H5YKjXv) for real-time assistance.
 
-# System requirements
-
-`@genezio/types` can be used in Genezio projects developed on macOS, Linux-based distributions, and Windows.
-
-It is designed to work with Node.js versions >= `14.0.0`.
-
 # Troubleshooting
 
 For the most common issues that our users have dealt with, we created a [Troubleshooting](https://docs.genez.io/genezio-documentation/troubleshooting) section in the documentation.
