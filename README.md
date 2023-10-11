@@ -28,14 +28,10 @@
 # Table of Contents
 - [Features](#features)
 - [Usage](#usage)
-- [Getting Started](#getting-started)
+- [Install `@genezio/types`](#Install-@genezio/types)
 - [Documentation](#documentation)
 - [Getting Support](#getting-support)
-- [System Requirements](#system-requirements)
 - [Troubleshooting](#troubleshooting)
-- [Contributions](#contributions)
-- [Ecosystem](#ecosystem)
-- [Badge](#badge)
 - [License](#license)
 
 # Features
@@ -122,9 +118,7 @@ const sampleResponse: GenezioHttpResponse = {
 These TypeScript types provided by @genezio/types will help ensure data consistency and proper typing in your genezio applications when handling HTTP requests and responses.
 
 
-# Getting Started
-
-## Install `@genezio/types`
+# Install `@genezio/types`
 
 To install the `@genezio/types` package, you can use npm or yarn:
 
@@ -136,7 +130,7 @@ npm install @genezio/types
 yarn add @genezio/types
 ```
 # Documentation
-To find more details on how to use `@genezio/types`, check out the official [documentation](https://genez.io/docs/types)
+To find more details on how to use `@genezio/types`, check out the official [documentation](https://docs.genez.io/types)
 
 Here you can find some examples:
 - [Webhook example](https://github.com/Genez-io/genezio-examples/tree/master/typescript/webhook)
@@ -167,25 +161,6 @@ For the most common issues that our users have dealt with, we created a [Trouble
 
 If you don't find the guidance there, drop us a [GitHub issue](https://github.com/Genez-io/types/issues). We are more than happy to help you!
 
-# Contributing
-
-Contributions are welcome! Please see our [Contributing Guide](CONTRIBUTING.md) for more details.
-
-Show your support by giving us a star :star:, to help others discover `genezio` and become part of our community!
-
-# Ecosystem
-
-There are a growing number of awesome projects deployed with `genezio` and we want to shout out about them.
-
-If you deployed a project using `genezio` let us know on [Discord](https://discord.gg/uc9H5YKjXv) and we will add it to our [Hall Of Fame](https://github.com/Genez-io/genezio#hall-of-fame).
-
-# Badge
-
-Brag to your friends that you are using `genezio` with this awesome badge -> [![deployed with: genezio](https://img.shields.io/badge/deployed_with-genezio-6742c1.svg?labelColor=62C353&style=flat)](https://github.com/genez-io/genezio)
-
-```md
-[![deployed with: genezio](https://img.shields.io/badge/deployed_with-genezio-6742c1.svg?labelColor=62C353&style=flat)](https://github.com/genez-io/genezio)
-```
 
 # License
 
