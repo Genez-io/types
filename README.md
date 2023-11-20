@@ -79,7 +79,7 @@ We are here to assist you with any problems or questions you may have while usin
 
 `@genezio/types` can be used in Genezio projects developed on macOS, Linux-based distributions, and Windows.
 
-It is designed to work with Node.js versions >= `14.0.0`.
+It is designed to work with Node.js versions >= `16.0.0`.
 
 # Troubleshooting
 
