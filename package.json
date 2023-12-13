@@ -1,6 +1,6 @@
 {
   "name": "@genezio/types",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "TypeScript definitions for Genezio",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
