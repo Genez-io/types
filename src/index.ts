@@ -21,7 +21,7 @@ export type GenezioDeployMethodParameters = {
 
 // Decorator that marks that a class should be deployed using genezio.
 export function GenezioDeploy(_dict: GenezioDeployClassParameters = {}) {
-    return (value: Function, _context: any) => {
+    return (value: any, _context: any) => {
         return value; 
     }
 
