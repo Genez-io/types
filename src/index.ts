@@ -28,19 +28,19 @@ export type GenezioDeployMethodParameters =
 
 // Decorator that marks that a class should be deployed using genezio.
 export function GenezioDeploy(_dict: GenezioDeployClassParameters = {}) {
-    return (_ctor: Function) => {};
+    return (value: any, _context: any) => {
+        return value; 
+    }
+
 }
 
 // Decorator that marks that a method should be deployed using genezio.
 export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
-    return function (_target: Object, _key: string, descriptor: TypedPropertyDescriptor<any>) {
-        let originalMethod = descriptor.value;
-
-        descriptor.value = function (...args: any[]) {
-            return originalMethod.apply(this, args);
+    return function(value: Function, _context: any) {
+        return function (...args: any[]) {
+            const result = value(args);
+            return result
         };
-
-        return descriptor;
     };
 }
 
