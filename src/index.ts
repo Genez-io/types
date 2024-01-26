@@ -65,3 +65,17 @@ export type GenezioHttpResponse = {
     statusCode: string;
     isBase64Encoded?: boolean;
 };
+
+export type GnzContext = {
+    token: string|undefined;
+    user: {
+        email: string;
+        userId: string;
+        authProvider: string;
+        createdAt: Date;
+        verified: boolean;
+        tokenConfirmEmail: string;
+        tokenReset: string;
+        name?: string;
+    }|undefined;
+}
