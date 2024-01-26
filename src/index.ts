@@ -38,7 +38,7 @@ export function GenezioDeploy(_dict: GenezioDeployClassParameters = {}) {
 export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
     return function(value: Function, _context: any) {
         return function (...args: any[]) {
-            const result = value(args);
+            const result = value(...args);
             return result
         };
     };
