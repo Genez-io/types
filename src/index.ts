@@ -1,3 +1,5 @@
+import { AuthService } from '@genezio/auth';
+
 export type GenezioDeployClassParameters = {
     // Specify the type of protocol that is used to invoke the methods of
     // this class.
@@ -43,6 +45,28 @@ export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
         };
     };
 }
+
+let authService: AuthService;
+
+export function GnzAuth(value: Function, _context: any) {
+    if (!authService) {
+        authService = new AuthService("", "");
+    }
+
+    return async function (...args: any[]) {
+        const response = await authService.userInfo(args[0].token);
+
+        if (!response.success) {
+            throw new Error("Unauthorized");
+        }
+
+        args[0].user = response.user;
+
+        const result = value(...args);
+        return result
+    };
+};
+
 
 export type GenezioHttpRequest = {
     headers: { [key: string]: string };

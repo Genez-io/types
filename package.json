@@ -1,6 +1,6 @@
 {
   "name": "@genezio/types",
-  "version": "0.1.16",
+  "version": "1.0.3",
   "description": "TypeScript definitions for Genezio",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -16,10 +16,14 @@
   "author": "Genezio",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.11.7",
     "typescript": "^5.2.2"
   },
   "prettier": {
     "tabWidth": 4,
     "printWidth": 100
+  },
+  "dependencies": {
+    "@genezio/auth": "^1.0.2"
   }
 }
