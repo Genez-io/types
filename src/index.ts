@@ -46,18 +46,18 @@ export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
     };
 }
 
-let authService: AuthService;
-
 export function GnzAuth(value: Function, _context: any) {
-    if (!authService) {
-        authService = new AuthService("", "");
-    }
-
     return async function (...args: any[]) {
-        const response = await authService.userInfo(args[0].token);
+        const response = await AuthService.getInstance().userInfo(args[0].token);
 
         if (!response.success) {
-            throw new Error("Unauthorized");
+            return {
+                success: false,
+                error: {
+                    code: 401,
+                    message: 'Unauthorized'
+                }
+            }
         }
 
         args[0].user = response.user;
