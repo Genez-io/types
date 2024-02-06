@@ -8,6 +8,28 @@ export type GenezioDeployClassParameters = {
     type?: "jsonrpc" | "http" | "cron";
 };
 
+export enum GenezioErrorCodes {
+    BadRequest = 400,
+    Unauthorized = 401,
+    PaymentRequired = 402,
+    Forbidden = 403,
+    NotFound = 404,
+    RequestTimeout = 408,
+    PreconditionFailed = 412,
+}
+
+export class GenezioError extends Error { 
+    code: GenezioErrorCodes|number;
+    info: { [id: string]: any; };
+
+    constructor(message: string, code: GenezioErrorCodes|number, info: { [id: string]: any; }) {
+        super(message);
+        this.name = 'GenezioError';
+        this.code = code;
+        this.info = info;
+    }
+}
+
 export type GenezioDeployMethodParameters =
     | {}
     | {
@@ -40,7 +62,9 @@ export function GenezioDeploy(_dict: GenezioDeployClassParameters = {}) {
 export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
     return function(value: Function, _context: any) {
         return function (...args: any[]) {
-            const result = value(...args);
+            // @ts-expect-error
+            const func = value.bind(this);
+            const result = func(...args);
             return result
         };
     };
