@@ -19,10 +19,10 @@ export enum GenezioErrorCodes {
 }
 
 export class GenezioError extends Error { 
-    code: GenezioErrorCodes|number;
-    info: { [id: string]: any; };
+    code: GenezioErrorCodes|number|undefined;
+    info: { [id: string]: any; }|undefined;
 
-    constructor(message: string, code: GenezioErrorCodes|number, info: { [id: string]: any; }) {
+    constructor(message: string, code: GenezioErrorCodes|number|undefined = undefined, info: { [id: string]: any; }|undefined = undefined) {
         super(message);
         this.name = 'GenezioError';
         this.code = code;
