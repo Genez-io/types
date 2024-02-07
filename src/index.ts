@@ -1,4 +1,4 @@
-import { AuthService } from '@genezio/auth';
+import { AuthService, ErrorCode } from '@genezio/auth';
 
 export type GenezioDeployClassParameters = {
     // Specify the type of protocol that is used to invoke the methods of
@@ -72,19 +72,18 @@ export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
 
 export function GnzAuth(value: Function, _context: any) {
     return async function (...args: any[]) {
-        const response = await AuthService.getInstance().userInfo(args[0].token);
-
-        if (!response.success) {
-            return {
-                success: false,
-                error: {
-                    code: 401,
-                    message: 'Unauthorized'
-                }
+        let response
+        try {
+            response= await AuthService.getInstance().userInfo(args[0].token);
+        } catch (error: any) {
+            if (error.code === ErrorCode.INVALID_TOKEN) {
+                throw new GenezioError('Unauthorized', GenezioErrorCodes.Unauthorized);
+            } else {
+                throw error;
             }
         }
 
-        args[0].user = response.user;
+        args[0].user = response;
 
         const result = value(...args);
         return result
