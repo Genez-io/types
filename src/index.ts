@@ -70,24 +70,28 @@ export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
     };
 }
 
-export function GnzAuth(value: Function, _context: any) {
-    return async function (...args: any[]) {
-        let response
-        try {
-            response= await AuthService.getInstance().userInfo(args[0].token);
-        } catch (error: any) {
-            if (error.code === ErrorCode.INVALID_TOKEN) {
-                throw new GenezioError('Unauthorized', GenezioErrorCodes.Unauthorized);
-            } else {
-                throw error;
+export function GnzAuth() {
+    return function(value: Function, _context: any) {
+        return async function (...args: any[]) {
+            let response
+            try {
+                response= await AuthService.getInstance().userInfo(args[0].token);
+            } catch (error: any) {
+                if (error.code === ErrorCode.INVALID_TOKEN) {
+                    throw new GenezioError('Unauthorized', GenezioErrorCodes.Unauthorized);
+                } else {
+                    throw error;
+                }
             }
-        }
 
-        args[0].user = response;
+            args[0].user = response;
 
-        const result = value(...args);
-        return result
-    };
+            // @ts-expect-error
+            const func = value.bind(this);
+            const result = func(...args);
+            return result
+        };
+    }
 };
 
 
@@ -121,8 +125,6 @@ export type GnzContext = {
         authProvider: string;
         createdAt: Date;
         verified: boolean;
-        tokenConfirmEmail: string;
-        tokenReset: string;
         name?: string;
     }|undefined;
 }
