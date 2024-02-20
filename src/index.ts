@@ -70,12 +70,12 @@ export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
     };
 }
 
-export function GnzAuth() {
+export function GenezioAuth() {
     return function(value: Function, _context: any) {
         return async function (...args: any[]) {
             let response
             try {
-                response= await AuthService.getInstance().userInfo(args[0].token);
+                response= await AuthService.getInstance().userInfoForToken(args[0].token);
             } catch (error: any) {
                 if (error.code === ErrorCode.INVALID_TOKEN) {
                     throw new GenezioError('Unauthorized', GenezioErrorCodes.Unauthorized);
