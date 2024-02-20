@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://genez.io/">
+  <a href="https://genezio.com/">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://github.com/genez-io/graphics/raw/HEAD/svg/Logo_Genezio_White.svg">
       <source media="(prefers-color-scheme: light)" srcset="https://github.com/genez-io/graphics/raw/HEAD/svg/Logo_Genezio_Black.svg">
@@ -56,18 +56,18 @@ npm install @genezio/types
 yarn add @genezio/types
 ```
 # Documentation
-To find more details on how to use `@genezio/types`, check out the official [documentation](https://genez.io/docs/types)
+To find more details on how to use `@genezio/types`, check out the official [documentation](https://genezio.com/docs/features/backend-deployment/)
 
 Here you can find some examples:
-- [Webhook example](https://github.com/Genez-io/genezio-examples/tree/master/typescript/webhook)
+- [Tutorials](https://genezio.com/docs/tutorials)
 
-To find more details on how to use `genezio`, check out the official [documentation](https://genez.io/docs):
+To find more details on how to use `genezio`, check out the official [documentation](https://genezio.com/docs)
 
-- [Getting started](https://docs.genez.io/genezio-documentation/getting-started)
-- [Project Structure](https://docs.genez.io/genezio-documentation/project-structure)
-- [CLI commands](https://docs.genez.io/genezio-documentation/cli-tool)
-- [Test Interface](https://docs.genez.io/genezio-documentation/test-interface)
-- [Integrations](https://docs.genez.io/genezio-documentation/integrations)
+- [Getting started](https://genezio.com/docs/getting-started/)
+- [Project Structure](https://genezio.com/docs/project-structure/)
+- [CLI commands](https://genezio.com/docs/cli-tool/)
+- [Test Interface](https://genezio.com/docs/features/testing)
+- [Integrations](https://genezio.com/docs/integrations/)
 
 If you cannot find what you are looking for in the docs, don't hesitate to drop us a [GitHub issue](https://github.com/Genez-io/genezio/issues) or [start a discussion on Discord](https://discord.gg/uc9H5YKjXv).
 
@@ -83,7 +83,7 @@ It is designed to work with Node.js versions >= `16.0.0`.
 
 # Troubleshooting
 
-For the most common issues that our users have dealt with, we created a [Troubleshooting](https://docs.genez.io/genezio-documentation/troubleshooting) section in the documentation.
+For the most common issues that our users have dealt with, we created a [Troubleshooting](https://genezio.com/docs/troubleshooting/) section in the documentation.
 
 If you don't find the guidance there, drop us a [GitHub issue](https://github.com/Genez-io/types/issues). We are more than happy to help you!
 
