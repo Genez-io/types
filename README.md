@@ -59,8 +59,7 @@ yarn add @genezio/types
 To find more details on how to use `@genezio/types`, check out the official [documentation](https://genezio.com/docs/features/backend-deployment/)
 
 Here you can find some examples:
-- [Webhook example](https://github.com/Genez-io/genezio-examples/tree/master/typescript/webhook)
-- [Auth example](https://github.com/Genez-io/genezio-react-auth)
+- [Tutorials](https://genezio.com/docs/tutorials)
 
 To find more details on how to use `genezio`, check out the official [documentation](https://genezio.com/docs)
 
