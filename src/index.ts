@@ -130,6 +130,9 @@ export type GnzContext = {
               createdAt: Date;
               verified: boolean;
               name?: string;
+              address?: string;
+              profilePictureUrl?: string;
+              customInfo?: {[key: string]: string;};
           }
         | undefined;
 };
