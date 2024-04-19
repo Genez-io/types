@@ -183,4 +183,5 @@ export type GnzContext = {
         | undefined;
     requestContext: any | undefined;
     headers: any | undefined;
+    isGnzContext: boolean | undefined;
 };
