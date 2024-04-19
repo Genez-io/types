@@ -1,4 +1,5 @@
 import { AuthService, ErrorCode } from "@genezio/auth";
+import Redis from "ioredis";
 
 export type GenezioDeployClassParameters = {
     // Specify the type of protocol that is used to invoke the methods of
@@ -54,6 +55,8 @@ export type GenezioDeployMethodParameters =
           cronString: string;
       };
 
+export type GenezioRateLimiterOptionsParameters = { dbUrl: string; limit: number };
+
 // Decorator that marks that a class should be deployed using genezio.
 export function GenezioDeploy(_dict: GenezioDeployClassParameters = {}) {
     return (value: any, _context: any) => {
@@ -98,6 +101,49 @@ export function GenezioAuth() {
     };
 }
 
+// Decorator that marks that limits the number of requests being made from the same sourceIp.
+export function GenezioRateLimiter(
+    _dict: GenezioRateLimiterOptionsParameters = { dbUrl: "", limit: 100000 }
+) {
+    return function (value: Function, _context: any) {
+        return async function (...args: any[]) {
+            if (args.length === 0 || !args[0].isGnzContext) {
+                console.log(
+                    "Warning: the GenezioRateLimiter decorator must be used with the first parameter being a GnzContext object"
+                );
+            } else {
+                try {
+                    const client = new Redis(_dict.dbUrl);
+                    const oldCount = await client.get(args[0].requestContext.http.sourceIp);
+                    if (oldCount && parseInt(oldCount) >= _dict.limit) {
+                        throw new GenezioError(
+                            "Rate limit exceeded",
+                            GenezioErrorCodes.RequestTimeout
+                        );
+                    }
+                    await client.set(
+                        args[0].requestContext.http.sourceIp,
+                        oldCount ? parseInt(oldCount) + 1 : 1
+                    );
+                } catch (error) {
+                    if ((error as GenezioError).code === GenezioErrorCodes.RequestTimeout) {
+                        throw error;
+                    }
+                    console.log(
+                        "Error when opperating on the redis client. Remember to set the Redis dbUrl parameter in the GenezioRateLimiter decorator."
+                    );
+                    console.log(error);
+                }
+            }
+
+            // @ts-expect-error
+            const func = value.bind(this);
+            const result = func(...args);
+            return result;
+        };
+    };
+}
+
 export type GenezioHttpRequest = {
     headers: { [key: string]: string };
     http: {
@@ -132,7 +178,9 @@ export type GnzContext = {
               name?: string;
               address?: string;
               profilePictureUrl?: string;
-              customInfo?: {[key: string]: string;};
+              customInfo?: { [key: string]: string };
           }
         | undefined;
+    requestContext: any | undefined;
+    headers: any | undefined;
 };

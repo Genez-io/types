@@ -24,6 +24,7 @@
         "printWidth": 100
     },
     "dependencies": {
-        "@genezio/auth": "^2.0.16-dev"
+        "@genezio/auth": "^2.0.16-dev",
+        "ioredis": "^5.4.1"
     }
 }
