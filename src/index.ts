@@ -103,6 +103,19 @@ export function GenezioAuth() {
 
 // Decorator that marks that limits the number of requests being made from the same sourceIp.
 export function GenezioRateLimiter(_dict: GenezioRateLimiterOptionsParameters = {}) {
+    let redisClient: Redis;
+    try {
+        redisClient = new Redis(_dict.dbUrl ? _dict.dbUrl : "", {
+            retryStrategy: function () {
+                return undefined;
+            },
+        });
+    } catch (error) {
+        console.log(
+            "Error when opperating on the redis client. Remember to set the Redis dbUrl parameter in the RateLimiter decorator."
+        );
+        console.log(error);
+    }
     return function (value: Function, _context: any) {
         return async function (...args: any[]) {
             if (args.length === 0 || !args[0].isGnzContext) {
@@ -112,8 +125,7 @@ export function GenezioRateLimiter(_dict: GenezioRateLimiterOptionsParameters = 
             } else {
                 try {
                     const date = new Date();
-                    const client = new Redis(_dict.dbUrl ? _dict.dbUrl : "");
-                    const oldCount = await client.get(
+                    const oldCount = await redisClient.get(
                         `${args[0].requestContext.http.sourceIp}:${date.getMinutes()}`
                     );
                     if (oldCount && parseInt(oldCount) >= (_dict.limit ? _dict.limit : 50)) {
@@ -122,7 +134,7 @@ export function GenezioRateLimiter(_dict: GenezioRateLimiterOptionsParameters = 
                             GenezioErrorCodes.RequestTimeout
                         );
                     }
-                    await client
+                    await redisClient
                         .multi()
                         .incr(`${args[0].requestContext.http.sourceIp}:${date.getMinutes()}`)
                         .expire(`${args[0].requestContext.http.sourceIp}:${date.getMinutes()}`, 59)
