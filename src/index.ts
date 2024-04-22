@@ -144,7 +144,7 @@ export function GenezioRateLimiter(_dict: GenezioRateLimiterOptionsParameters = 
                         throw error;
                     }
                     console.log(
-                        "Error when opperating on the redis client. Remember to set the redisClient parameter in the GenezioRateLimiter decorator."
+                        "Error when opperating on the redis client. Remember to set the Redis dbUrl parameter in the GenezioRateLimiter decorator."
                     );
                     console.log(error);
                 }
