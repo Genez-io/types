@@ -132,7 +132,10 @@ export type GnzContext = {
               name?: string;
               address?: string;
               profilePictureUrl?: string;
-              customInfo?: {[key: string]: string;};
+              customInfo?: { [key: string]: string };
           }
         | undefined;
+    requestContext: any | undefined;
+    headers: any | undefined;
+    isGnzContext: boolean | undefined;
 };
