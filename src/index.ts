@@ -1,4 +1,4 @@
-import { AuthService, ErrorCode } from '@genezio/auth';
+import { AuthService, ErrorCode } from "@genezio/auth";
 
 export type GenezioDeployClassParameters = {
     // Specify the type of protocol that is used to invoke the methods of
@@ -18,13 +18,17 @@ export enum GenezioErrorCodes {
     PreconditionFailed = 412,
 }
 
-export class GenezioError extends Error { 
-    code: GenezioErrorCodes|number|undefined;
-    info: { [id: string]: any; }|undefined;
+export class GenezioError extends Error {
+    code: GenezioErrorCodes | number | undefined;
+    info: { [id: string]: any } | undefined;
 
-    constructor(message: string, code: GenezioErrorCodes|number|undefined = undefined, info: { [id: string]: any; }|undefined = undefined) {
+    constructor(
+        message: string,
+        code: GenezioErrorCodes | number | undefined = undefined,
+        info: { [id: string]: any } | undefined = undefined
+    ) {
         super(message);
-        this.name = 'GenezioError';
+        this.name = "GenezioError";
         this.code = code;
         this.info = info;
     }
@@ -53,32 +57,32 @@ export type GenezioDeployMethodParameters =
 // Decorator that marks that a class should be deployed using genezio.
 export function GenezioDeploy(_dict: GenezioDeployClassParameters = {}) {
     return (value: any, _context: any) => {
-        return value; 
-    }
-
+        return value;
+    };
 }
 
 // Decorator that marks that a method should be deployed using genezio.
 export function GenezioMethod(_dict: GenezioDeployMethodParameters = {}) {
-    return function(value: Function, _context: any) {
+    return function (value: Function, _context: any) {
         return function (...args: any[]) {
             // @ts-expect-error
             const func = value.bind(this);
             const result = func(...args);
-            return result
+            return result;
         };
     };
 }
 
 export function GenezioAuth() {
-    return function(value: Function, _context: any) {
+    return function (value: Function, _context: any) {
         return async function (...args: any[]) {
-            let response
+            let response;
             try {
-                response= await AuthService.getInstance().userInfoForToken(args[0].token);
+                AuthService.getInstance().setServerSide(true);
+                response = await AuthService.getInstance().userInfoForToken(args[0].token);
             } catch (error: any) {
                 if (error.code === ErrorCode.INVALID_TOKEN) {
-                    throw new GenezioError('Unauthorized', GenezioErrorCodes.Unauthorized);
+                    throw new GenezioError("Unauthorized", GenezioErrorCodes.Unauthorized);
                 } else {
                     throw error;
                 }
@@ -89,11 +93,10 @@ export function GenezioAuth() {
             // @ts-expect-error
             const func = value.bind(this);
             const result = func(...args);
-            return result
+            return result;
         };
-    }
-};
-
+    };
+}
 
 export type GenezioHttpRequest = {
     headers: { [key: string]: string };
@@ -118,13 +121,21 @@ export type GenezioHttpResponse = {
 };
 
 export type GnzContext = {
-    token: string|undefined;
-    user: {
-        email: string;
-        userId: string;
-        authProvider: string;
-        createdAt: Date;
-        verified: boolean;
-        name?: string;
-    }|undefined;
-}
+    token: string | undefined;
+    user:
+        | {
+              email: string;
+              userId: string;
+              authProvider: string;
+              createdAt: Date;
+              verified: boolean;
+              name?: string;
+              address?: string;
+              profilePictureUrl?: string;
+              customInfo?: { [key: string]: string };
+          }
+        | undefined;
+    requestContext: any | undefined;
+    headers: any | undefined;
+    isGnzContext: boolean | undefined;
+};
